@@ -27,26 +27,49 @@ export class SignUpPage extends Component {
 
   onChange = ({ target }) => {
     this.setState({
-      data: { ...this.state.data, [target.name]: target.value }
+      data: { ...this.state.data, [target.name]: target.value },
+      errors: {}
     });
+  };
+
+  validateInput = ({ email, password, confrimPassword, phoneNo, username }) => {
+    const errors = {};
+    if (!email) errors.email = "Please enter a Email";
+    if (!phoneNo) errors.phoneNo = "Please enter a Phone Number";
+    if (!username) errors.username = "Please enter a User Name";
+    if (!password) errors.password = "Please enter a Password";
+    if (!confrimPassword)
+      errors.confrimPassword = "Please enter a Confrim Password";
+    if (password && confrimPassword) {
+      if (!(password === confrimPassword))
+        errors.confrimPassword = "Password Should match";
+    }
+
+    return errors;
   };
 
   onSubmit = async () => {
     const { email, username, phoneNo, password } = this.state.data;
     this.setState({ loading: true });
-    const response = await this.props.mutate({
-      variables: { email, username, phoneNo, password }
-    });
-    console.log(response);
-    const { ok, errors } = response.data.signUp;
-    this.setState({ errors, loading: false });
-    if (ok) {
-      this.props.history.push("/signin");
+    var errors = this.validateInput(this.state.data);
+    if (!errors) {
+      const response = await this.props.mutate({
+        variables: { email, username, phoneNo, password }
+      });
+      console.log(response);
+
+      const { ok, errors } = response.data.signUp;
+
+      this.setState({ errors, loading: false });
+      if (ok) {
+        this.props.history.push("/signin");
+      }
     }
+    this.setState({ errors, loading: false });
   };
 
   render() {
-    const { data, loading } = this.state;
+    const { data, loading, errors } = this.state;
     return (
       <div className="login-form">
         <style>{`
@@ -69,6 +92,7 @@ export class SignUpPage extends Component {
             <Form size="large">
               <Segment>
                 <Form.Input
+                  error={errors.email}
                   name="email"
                   fluid
                   icon="mail"
@@ -78,7 +102,9 @@ export class SignUpPage extends Component {
                   placeholder="E-mail address"
                   onChange={this.onChange}
                 />
+
                 <Form.Input
+                  error={errors.username}
                   name="username"
                   fluid
                   icon="user"
@@ -89,6 +115,7 @@ export class SignUpPage extends Component {
                   onChange={this.onChange}
                 />
                 <Form.Input
+                  error={errors.phoneNo}
                   name="phoneNo"
                   fluid
                   value={data.phoneNo}
@@ -99,6 +126,7 @@ export class SignUpPage extends Component {
                   onChange={this.onChange}
                 />
                 <Form.Input
+                  error={errors.password}
                   name="password"
                   fluid
                   value={data.password}
@@ -110,6 +138,7 @@ export class SignUpPage extends Component {
                 />
 
                 <Form.Input
+                  error={errors.confrimPassword}
                   name="confrimPassword"
                   fluid
                   value={data.confrimPassword}
@@ -134,6 +163,13 @@ export class SignUpPage extends Component {
             <Message>
               Already have an Account? <Link to="/signin"> Sign-In </Link>
             </Message>
+            {Object.keys(errors).length !== 0 && (
+              <Message
+                error
+                header="There was some errors with your submission"
+                list={Object.values(errors)}
+              />
+            )}
           </Grid.Column>
         </Grid>
       </div>
