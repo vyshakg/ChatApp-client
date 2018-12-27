@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -12,14 +11,15 @@ import {
   Segment
 } from "semantic-ui-react";
 
-export class SignUpPage extends Component {
+import { SignupMutation } from "../../graphqlQuery";
+
+class SignUpPage extends Component {
   state = {
     data: {
       email: "",
       username: "",
       phoneNo: "",
-      password: "",
-      confrimPassword: ""
+      password: ""
     },
     errors: {},
     loading: false
@@ -32,53 +32,34 @@ export class SignUpPage extends Component {
     });
   };
 
-  validateInput = ({ email, password, confrimPassword, phoneNo, username }) => {
-    const errors = {};
-    if (!email) errors.email = "Please enter a Email";
-    if (!phoneNo) errors.phoneNo = "Please enter a Phone Number";
-    if (!username) errors.username = "Please enter a User Name";
-    if (!password) errors.password = "Please enter a Password";
-    if (!confrimPassword)
-      errors.confrimPassword = "Please enter a Confrim Password";
-    if (password && confrimPassword) {
-      if (!(password === confrimPassword))
-        errors.confrimPassword = "Password Should match";
-    }
-
-    return errors;
-  };
-
   onSubmit = async () => {
     const { email, username, phoneNo, password } = this.state.data;
+
     this.setState({ loading: true });
-    var errors = this.validateInput(this.state.data);
-    if (!errors) {
-      const response = await this.props.mutate({
-        variables: { email, username, phoneNo, password }
+
+    const response = await this.props.mutate({
+      variables: { email, username, phoneNo, password }
+    });
+
+    const { ok, errors } = response.data.signUp;
+
+    if (ok) {
+      this.props.history.push("/signin");
+    } else {
+      const err = {};
+      errors.forEach(({ path, message }) => {
+        err[path] = message;
       });
-      console.log(response);
-
-      const { ok, errors } = response.data.signUp;
-
-      this.setState({ errors, loading: false });
-      if (ok) {
-        this.props.history.push("/signin");
-      }
+      this.setState({ errors: err });
     }
-    this.setState({ errors, loading: false });
+
+    this.setState({ loading: false });
   };
 
   render() {
     const { data, loading, errors } = this.state;
     return (
       <div className="login-form">
-        <style>{`
-          body > div,
-          body > div > div,
-          body > div > div > div.login-form {
-            height: 100%;
-          }
-        `}</style>
         <Grid
           textAlign="center"
           style={{ height: "100%" }}
@@ -92,7 +73,7 @@ export class SignUpPage extends Component {
             <Form size="large">
               <Segment>
                 <Form.Input
-                  error={errors.email}
+                  error={!!errors.email}
                   name="email"
                   fluid
                   icon="mail"
@@ -104,7 +85,7 @@ export class SignUpPage extends Component {
                 />
 
                 <Form.Input
-                  error={errors.username}
+                  error={!!errors.username}
                   name="username"
                   fluid
                   icon="user"
@@ -115,7 +96,7 @@ export class SignUpPage extends Component {
                   onChange={this.onChange}
                 />
                 <Form.Input
-                  error={errors.phoneNo}
+                  error={!!errors.phoneNo}
                   name="phoneNo"
                   fluid
                   value={data.phoneNo}
@@ -126,25 +107,13 @@ export class SignUpPage extends Component {
                   onChange={this.onChange}
                 />
                 <Form.Input
-                  error={errors.password}
+                  error={!!errors.password}
                   name="password"
                   fluid
                   value={data.password}
                   icon="lock"
                   iconPosition="left"
                   placeholder="Password"
-                  type="password"
-                  onChange={this.onChange}
-                />
-
-                <Form.Input
-                  error={errors.confrimPassword}
-                  name="confrimPassword"
-                  fluid
-                  value={data.confrimPassword}
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder=" Confrirm Password"
                   type="password"
                   onChange={this.onChange}
                 />
@@ -176,27 +145,5 @@ export class SignUpPage extends Component {
     );
   }
 }
-
-const SignupMutation = gql`
-  mutation(
-    $email: String!
-    $username: String!
-    $phoneNo: String!
-    $password: String!
-  ) {
-    signUp(
-      email: $email
-      username: $username
-      phoneNo: $phoneNo
-      password: $password
-    ) {
-      ok
-      errors {
-        path
-        message
-      }
-    }
-  }
-`;
 
 export default graphql(SignupMutation)(SignUpPage);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import {
   Button,
   Form,
@@ -11,6 +10,8 @@ import {
   Icon,
   Segment
 } from "semantic-ui-react";
+
+import { SigninMutation } from "../../graphqlQuery";
 export class SignInPage extends Component {
   state = {
     data: {
@@ -30,29 +31,30 @@ export class SignInPage extends Component {
   onSubmit = async () => {
     const { email, password } = this.state.data;
     this.setState({ loading: true });
+
     const response = await this.props.mutate({
       variables: { email, password }
     });
-    console.log(response);
+
     const { ok, errors } = response.data.signIn;
-    this.setState({ errors, loading: false });
+
     if (ok) {
       this.props.history.push("/");
+    } else {
+      const err = {};
+      errors.forEach(({ path, message }) => {
+        err[path] = message;
+      });
+      this.setState({ errors: err });
     }
+    this.setState({ loading: false });
   };
 
   render() {
-    const { data, loading } = this.state;
+    const { data, loading, errors } = this.state;
     return (
       <>
         <div className="login-form">
-          <style>{`
-          body > div,
-          body > div > div,
-          body > div > div > div.login-form {
-            height: 100%;
-          }
-        `}</style>
           <Grid
             textAlign="center"
             style={{ height: "100%" }}
@@ -66,6 +68,7 @@ export class SignInPage extends Component {
                 <Segment>
                   <Form.Input
                     fluid
+                    error={!!errors.email}
                     icon="mail"
                     name="email"
                     type="text"
@@ -76,6 +79,7 @@ export class SignInPage extends Component {
                   />
                   <Form.Input
                     fluid
+                    error={!!errors.password}
                     icon="lock"
                     name="password"
                     iconPosition="left"
@@ -99,6 +103,13 @@ export class SignInPage extends Component {
               <Message>
                 New to us? <Link to="/signup">Sign Up</Link>
               </Message>
+              {Object.keys(errors).length !== 0 && (
+                <Message
+                  error
+                  header="There was some errors with your submission"
+                  list={Object.values(errors)}
+                />
+              )}
             </Grid.Column>
           </Grid>
         </div>
@@ -106,18 +117,5 @@ export class SignInPage extends Component {
     );
   }
 }
-
-const SigninMutation = gql`
-  mutation($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
-      ok
-      token
-      errors {
-        path
-        message
-      }
-    }
-  }
-`;
 
 export default graphql(SigninMutation)(SignInPage);

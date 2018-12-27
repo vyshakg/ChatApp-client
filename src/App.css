@@ -6,3 +6,7 @@
 .primaryColor {
   color: #595aac !important;
 }
+
+.login-form {
+  height: 100vh;
+}
