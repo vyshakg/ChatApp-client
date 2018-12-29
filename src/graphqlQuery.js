@@ -34,3 +34,19 @@ export const SigninMutation = gql`
     }
   }
 `;
+
+export const Me = gql`
+  query {
+    me {
+      username
+      email
+      conversations {
+        id
+        createdAt
+        participant {
+          username
+        }
+      }
+    }
+  }
+`;

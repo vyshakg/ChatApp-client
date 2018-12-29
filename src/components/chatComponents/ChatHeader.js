@@ -13,7 +13,7 @@ function ChatHeader({ username, email }) {
         />
         <div>
           <h3 style={{ margin: 0 }}>{username}</h3>
-          <spam>{email}</spam>
+          <span>{email}</span>
         </div>
       </div>
     </>

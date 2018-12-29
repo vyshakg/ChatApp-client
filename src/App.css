@@ -27,7 +27,7 @@
   grid-row: 1 / 4;
 }
 
-.header {
+.homeHeader {
   grid-column: 3;
   grid-row: 1;
   background: #0c6ca4;
@@ -38,8 +38,18 @@
   grid-column: 3;
   grid-row: 2;
   background: #dee5ed;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
 }
-
+.message-list {
+  padding: 0;
+}
+.message-list > li {
+  display: block;
+}
 .input {
   grid-column: 3;
   grid-row: 3;
@@ -50,7 +60,7 @@
 .custom-message-input {
   padding: 0.75rem;
   width: 100%;
-  border-radius: 0.5rem !important;
+  /* border-radius: 0.5rem !important; */
 }
 
 .header-info {
@@ -64,4 +74,76 @@
 
 .header-info > div {
   padding-left: 1rem;
+}
+.conversation-new {
+  width: 100% !important;
+  text-align: center;
+  height: 70px;
+  padding: 1rem;
+}
+.talk-bubble {
+  margin: 0.3125rem;
+  display: inline-block;
+  position: relative;
+  width: 12.5rem;
+  height: auto;
+  background-color: lightyellow;
+}
+
+.tri-right.border.btm-left:before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -8px;
+  right: auto;
+  top: auto;
+  bottom: -40px;
+  border: 2rem solid;
+  border-color: transparent transparent transparent #666;
+}
+.tri-right.btm-left:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 0px;
+  right: auto;
+  top: auto;
+  bottom: -20px;
+  border: 22px solid;
+  border-color: transparent transparent transparent lightyellow;
+}
+.tri-right.border.btm-right:before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: -8px;
+  bottom: -40px;
+  border: 20px solid;
+  border-color: #666 #666 transparent transparent;
+}
+.tri-right.btm-right:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: 0px;
+  bottom: -20px;
+  border: 12px solid;
+  border-color: lightyellow lightyellow transparent transparent;
+}
+
+.talktext {
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
+}
+.talktext p {
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
 }

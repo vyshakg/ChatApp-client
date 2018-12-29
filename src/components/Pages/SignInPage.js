@@ -36,10 +36,11 @@ export class SignInPage extends Component {
       variables: { email, password }
     });
 
-    const { ok, errors } = response.data.signIn;
+    const { ok, token, errors } = response.data.signIn;
 
     if (ok) {
-      this.props.history.push("/");
+      localStorage.setItem("token", token);
+      this.props.history.push("/home");
     } else {
       const err = {};
       errors.forEach(({ path, message }) => {

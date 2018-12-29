@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 
 import SignInPage from "./components/Pages/SignInPage";
 import SignUpPage from "./components/Pages/SignUpPage";
-import HomeMessagepage from './components/Pages/HomeMessagepage'
+import HomeMessagepage from "./components/Pages/HomeMessagepage";
 const App = ({ location }) => {
   return (
     <>
@@ -12,7 +12,7 @@ const App = ({ location }) => {
       <Route
         location={location}
         exact
-        path="/messages"
+        path="/home"
         component={HomeMessagepage}
       />
     </>
