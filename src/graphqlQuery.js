@@ -35,7 +35,7 @@ export const SigninMutation = gql`
   }
 `;
 
-export const Me = gql`
+export const me = gql`
   query {
     me {
       username
@@ -45,7 +45,34 @@ export const Me = gql`
         createdAt
         participant {
           username
+          id
         }
+      }
+    }
+  }
+`;
+
+export const allUsers = gql`
+  query {
+    allUsers {
+      username
+      email
+      online
+      id
+    }
+  }
+`;
+
+export const createConversationMutation = gql`
+  mutation($userid: ID!) {
+    createConversation(userid: $userid) {
+      ok
+      conversation {
+        id
+        participant {
+          username
+        }
+        createdAt
       }
     }
   }

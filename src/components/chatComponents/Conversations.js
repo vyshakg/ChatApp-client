@@ -1,28 +1,52 @@
 import React from "react";
-import { Comment, Button } from "semantic-ui-react";
+import { Comment } from "semantic-ui-react";
 import bob from "../../images/bob.jpg";
 import diffDate from "../../utils/formatDate";
+import NewConversation from "./NewConversation";
+import { graphql } from "react-apollo";
+import { createConversationMutation, me } from "../../graphqlQuery";
+function Conversations({ conversations, mutate }) {
+  function newConversation(id, username) {
+    mutate({
+      variables: { userid: id },
+      optimisticResponse: {
+        createConversation: {
+          __typename: "Mutation",
+          ok: true,
+          conversation: {
+            __typename: "Conversation",
+            id: -1,
+            participant: {
+              __typename: "User",
+              username: username
+            },
+            createdAt: new Date().toISOString()
+          }
+        }
+      },
+      update: (store, { data: { createConversation } }) => {
+        const { ok, conversation } = createConversation;
 
-function Conversations({ conversations }) {
+        if (!ok) {
+          return;
+        }
+        const data = store.readQuery({ query: me });
+        data.me.conversations.push(conversation);
+        store.writeQuery({ query: me, data: data.me });
+      }
+    });
+  }
   return (
     <>
-      <div className="conversation-new">
-        <h3>
-          <Button
-            circular
-            color="facebook"
-            size="huge"
-            icon="plus"
-            style={{ marginRight: "1.15rem" }}
-          />
-          New Conversation
-        </h3>
-      </div>
+      <NewConversation
+        conversations={conversations}
+        newConversation={newConversation}
+      />
 
       <Comment.Group size="big">
         {conversations.map(({ participant, id, createdAt }) => (
-          <>
-            <Comment key={id} style={{ marginLeft: "1rem" }}>
+          <React.Fragment key={id}>
+            <Comment style={{ marginLeft: "1rem" }}>
               <Comment.Avatar src={bob} />
               <Comment.Content>
                 <Comment.Author as="span">
@@ -35,11 +59,11 @@ function Conversations({ conversations }) {
               </Comment.Content>
             </Comment>
             <br />
-          </>
+          </React.Fragment>
         ))}
       </Comment.Group>
     </>
   );
 }
 
-export default Conversations;
+export default graphql(createConversationMutation)(Conversations);
