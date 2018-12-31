@@ -4,6 +4,7 @@ import ChatHeader from "../chatComponents/ChatHeader";
 import Conversations from "../chatComponents/Conversations";
 import { graphql } from "react-apollo";
 import { me } from "../../graphqlQuery";
+import Messages from "../chatComponents/Messages";
 
 class HomeMessagepage extends React.Component {
   render() {
@@ -24,22 +25,7 @@ class HomeMessagepage extends React.Component {
           <ChatHeader username={me.username} email={me.email} />
         </div>
         <div className="messages">
-          <ul className="message-list">
-            <li>
-              <div className="talk-bubble tri-right  btm-left">
-                <div className="talktext">
-                  <p>hi</p>
-                </div>
-              </div>
-            </li>
-            <li style={{ float: "right" }}>
-              <div className="talk-bubble tri-right btm-right">
-                <div className="talktext">
-                  <p>Flush to the bottom right. Uses .btm-right only.</p>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <Messages />
         </div>
         <div className="input">
           <MessageInput />

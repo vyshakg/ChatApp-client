@@ -3,12 +3,20 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
 import { setContext } from "apollo-link-context";
+import { WebSocketLink } from "apollo-link-ws";
+import { split } from "apollo-link";
+import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "http://localhost:4100/graphql",
   credentials: "same-origin"
 });
-
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:4100/graphql`,
+  options: {
+    reconnect: true
+  }
+});
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("token");
@@ -39,8 +47,19 @@ const afterwareLink = new ApolloLink((operation, forward) => {
   });
 });
 
+const httpLinkWithMiddleware = afterwareLink.concat(authLink.concat(httpLink));
+
+const link = split(
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    return kind === "OperationDefinition" && operation === "subscription";
+  },
+  wsLink,
+  httpLinkWithMiddleware
+);
+
 const client = new ApolloClient({
-  link: afterwareLink.concat(authLink.concat(httpLink)),
+  link,
   cache: new InMemoryCache()
 });
 
