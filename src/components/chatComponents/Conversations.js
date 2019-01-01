@@ -1,10 +1,12 @@
 import React from "react";
-import { Comment } from "semantic-ui-react";
+import { Image, Icon } from "semantic-ui-react";
 import bob from "../../images/bob.jpg";
 import diffDate from "../../utils/formatDate";
 import NewConversation from "./NewConversation";
 import { graphql } from "react-apollo";
 import { createConversationMutation, me } from "../../graphqlQuery";
+import { NavLink } from "react-router-dom";
+
 function Conversations({ conversations, mutate }) {
   function newConversation(id, username) {
     mutate({
@@ -43,25 +45,29 @@ function Conversations({ conversations, mutate }) {
         newConversation={newConversation}
       />
 
-      <Comment.Group size="big">
-        {conversations.map(({ participant, id, createdAt }) => (
-          <React.Fragment key={id}>
-            <Comment style={{ marginLeft: "1rem" }}>
-              <Comment.Avatar src={bob} />
-              <Comment.Content>
-                <Comment.Author as="span">
+      {conversations.map(({ participant, id, createdAt, online }) => (
+        <NavLink activeClassName="active" key={id} to={`/home/${id}`}>
+          <React.Fragment>
+            <div className="conversation-list">
+              <div className="conversation-image">
+                <Image src={bob} circular inline bordered />
+              </div>
+              <div className="conversation-content">
+                <h3 style={{ margin: 0 }}>
                   {participant.username}
-                </Comment.Author>
-                <Comment.Metadata>
-                  <div>{`${diffDate(createdAt)} ago`}</div>
-                </Comment.Metadata>
-                {/* <Comment.Text>Dude, this is awesome.</Comment.Text> */}
-              </Comment.Content>
-            </Comment>
-            <br />
+                  <Icon
+                    style={{ marginLeft: "3px" }}
+                    name="circle"
+                    color={online ? "green" : "grey"}
+                    size="tiny"
+                  />
+                </h3>
+                <span>{diffDate(createdAt)}</span>
+              </div>
+            </div>
           </React.Fragment>
-        ))}
-      </Comment.Group>
+        </NavLink>
+      ))}
     </>
   );
 }

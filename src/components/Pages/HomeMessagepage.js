@@ -14,7 +14,7 @@ class HomeMessagepage extends React.Component {
     if (loading) {
       return null;
     }
-    console.log(me);
+    // console.log(me);
     return (
       <div className="app-layout">
         <div className="sidebar">sidebar</div>
@@ -25,7 +25,7 @@ class HomeMessagepage extends React.Component {
           <ChatHeader username={me.username} email={me.email} />
         </div>
         <div className="messages">
-          <Messages />
+          <Messages conversationId={this.props.match.params.conversationId} />
         </div>
         <div className="input">
           <MessageInput />

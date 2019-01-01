@@ -77,3 +77,21 @@ export const createConversationMutation = gql`
     }
   }
 `;
+
+export const createMessage = gql`
+  mutation($conversationId: ID!, $text: String!) {
+    createMessage(conversationId: $conversationId, text: $text)
+  }
+`;
+
+export const messages = gql`
+  query($conversationId: ID!) {
+    messages(conversationId: $conversationId) {
+      id
+      text
+      sender {
+        username
+      }
+    }
+  }
+`;

@@ -8,11 +8,11 @@ import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4100/graphql",
+  uri: "http://localhost:4000/graphql",
   credentials: "same-origin"
 });
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4100/graphql`,
+  uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true
   }

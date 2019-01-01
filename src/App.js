@@ -12,7 +12,7 @@ const App = ({ location }) => {
       <Route
         location={location}
         exact
-        path="/home"
+        path="/home/:conversationId?"
         component={HomeMessagepage}
       />
     </>

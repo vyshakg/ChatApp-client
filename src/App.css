@@ -168,3 +168,24 @@
   grid-column: 3;
   float: right;
 }
+
+.conversation-list {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  padding: 0.5rem;
+}
+
+.conversation-image {
+  grid-column: 1;
+}
+
+.conversation-content {
+  grid-column: 2;
+  margin-left: 1rem;
+  margin-top: 0.5625rem;
+}
+
+a.active > div {
+  color: white !important;
+  background: #2185d094 !important;
+}

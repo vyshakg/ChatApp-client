@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Input } from "semantic-ui-react";
+import { graphql } from "react-apollo";
+import { createMessage } from "../../graphqlQuery";
+import { withRouter } from "react-router";
 const ENTER_KEY = 13;
 class MessageInput extends Component {
   state = {
@@ -8,10 +11,15 @@ class MessageInput extends Component {
   onChange = ({ target }) => {
     this.setState({ message: target.value });
   };
-  handleKeyDown = e => {
+  handleKeyDown = async e => {
     if (e.keyCode === ENTER_KEY) {
-      console.log(this.state.message);
-      this.setState({ message: "" });
+      const response = await this.props.mutate({
+        variables: {
+          conversationId: this.props.match.params.conversationId,
+          text: this.state.message
+        }
+      });
+      if (response) this.setState({ message: "" });
     }
   };
   render() {
@@ -32,4 +40,4 @@ class MessageInput extends Component {
   }
 }
 
-export default MessageInput;
+export default withRouter(graphql(createMessage)(MessageInput));
