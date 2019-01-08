@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
@@ -42,7 +42,7 @@ class SignUpPage extends Component {
     });
 
     const { ok, errors } = response.data.signUp;
-
+    this.setState({ loading: false });
     if (ok) {
       this.props.history.push("/signin");
     } else {
@@ -52,8 +52,6 @@ class SignUpPage extends Component {
       });
       this.setState({ errors: err });
     }
-
-    this.setState({ loading: false });
   };
 
   render() {

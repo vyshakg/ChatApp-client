@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Image, Modal, Icon } from "semantic-ui-react";
-import bob from "../../images/bob.jpg";
+import bob from "../../images/lamo.jpg";
 import { graphql } from "react-apollo";
 import { allUsers } from "../../graphqlQuery";
 import { differenceBy } from "lodash";
@@ -12,9 +12,9 @@ class NewConversation extends React.Component {
 
   handleClose = () => this.setState({ modalOpen: false });
 
-  newConversation = (id, username) => {
+  newConversation = (id, username, email) => {
     this.setState({ modalOpen: false });
-    this.props.newConversation(id, username);
+    this.props.newConversation(id, username, email);
   };
   render() {
     const {
@@ -25,10 +25,10 @@ class NewConversation extends React.Component {
     if (loading) {
       return null;
     }
-    const participant = conversations.map(
-      conversation => conversation.participant
+    const participants = conversations.map(
+      conversation => conversation.participants[0]
     );
-    const newUsers = differenceBy(allUsers, participant, "id");
+    const newUsers = differenceBy(allUsers, participants, "id");
     return (
       <div className="conversation-new">
         <Modal
@@ -82,7 +82,9 @@ class NewConversation extends React.Component {
                       <Button
                         floated="right"
                         style={{ marginTop: "0.75rem", width: "12rem" }}
-                        onClick={() => this.newConversation(id, username)}
+                        onClick={() =>
+                          this.newConversation(id, username, email)
+                        }
                         color="blue"
                       >
                         <Icon name="chat" />

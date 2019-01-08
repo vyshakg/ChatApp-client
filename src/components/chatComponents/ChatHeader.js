@@ -1,7 +1,7 @@
 import React from "react";
-import bob from "../../images/bob.jpg";
+import bob from "../../images/lamo.jpg";
 import { Image } from "semantic-ui-react";
-function ChatHeader({ username, email }) {
+function ChatHeader({ username, email, me }) {
   return (
     <>
       <div className="header-info">

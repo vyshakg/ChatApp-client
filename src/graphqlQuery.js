@@ -38,16 +38,23 @@ export const SigninMutation = gql`
 export const me = gql`
   query {
     me {
+      id
       username
       email
+      phoneNo
+      online
       conversations {
         id
-        createdAt
-        participant {
-          username
+        participants {
           id
+          username
+          email
+          __typename
         }
+        createdAt
+        __typename
       }
+      __typename
     }
   }
 `;
@@ -66,13 +73,18 @@ export const allUsers = gql`
 export const createConversationMutation = gql`
   mutation($userid: ID!) {
     createConversation(userid: $userid) {
+      __typename
       ok
       conversation {
         id
-        participant {
+        participants {
+          id
           username
+          email
+          __typename
         }
         createdAt
+        __typename
       }
     }
   }
@@ -89,9 +101,24 @@ export const messages = gql`
     messages(conversationId: $conversationId) {
       id
       text
-      sender {
+      from {
+        id
         username
       }
+    }
+  }
+`;
+
+export const newConversationMessage = gql`
+  subscription($conversationId: ID!) {
+    newConversationMessage(conversationId: $conversationId) {
+      id
+      text
+      from {
+        id
+        username
+      }
+      createdAt
     }
   }
 `;

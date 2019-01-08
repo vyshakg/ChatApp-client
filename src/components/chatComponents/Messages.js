@@ -1,13 +1,54 @@
 import React, { Component } from "react";
 import MessageDesignLeft from "../chatComponents/MessageDesignLeft";
 import MessageDesignRight from "../chatComponents/MessageDesignRight";
-import { messages } from "../../graphqlQuery";
+import { messages, newConversationMessage } from "../../graphqlQuery";
 import { graphql } from "react-apollo";
-import { withRouter } from "react-router-dom";
+
 class Messages extends Component {
   state = {
-    messages: []
+    messages: [],
+    conversationId: null,
+    unsubscribe: null
   };
+  static getDerivedStateFromProps(nextProps = this.props, prevState) {
+    if (!nextProps.data.loading) {
+      // Check for existing subscription
+      if (prevState.unsubscribe) {
+        // Only unsubscribe/update state if subscription variable has changed
+        if (prevState.conversationId === nextProps.conversationId) {
+          return null;
+        }
+        prevState.unsubscribe();
+      }
+
+      return {
+        // Subscribe
+        unsubscribe: nextProps.data.subscribeToMore({
+          document: newConversationMessage,
+          variables: {
+            conversationId: nextProps.conversationId
+          },
+          updateQuery: (previousResult, { subscriptionData }) => {
+            // Perform updates on previousResult with subscriptionData
+            if (!subscriptionData) {
+              return previousResult;
+            }
+            return {
+              ...previousResult,
+              messages: [
+                ...previousResult.messages,
+                subscriptionData.data.newConversationMessage
+              ]
+            };
+          }
+        }),
+        // Store subscriptionParam in state for next update
+        conversationId: nextProps.conversationId
+      };
+    }
+
+    return null;
+  }
 
   render() {
     const {
@@ -16,24 +57,28 @@ class Messages extends Component {
     if (loading) {
       return null;
     }
-
-    // const response = this.props.messages({
-    //   variables: {
-    //     conversationId: "5c2915c6db996a18a8620af0"
-    //   }
-    // });
+    const { userid } = this.props;
 
     return (
       <ul className="message-list">
         {messages.map(message => (
-          <MessageDesignLeft key={message.id} text={message.text} />
+          <React.Fragment key={message.id}>
+            {userid === message.from.id ? (
+              <MessageDesignLeft text={message.text} />
+            ) : (
+              <MessageDesignRight text={message.text} />
+            )}
+          </React.Fragment>
         ))}
       </ul>
     );
   }
 }
 export default graphql(messages, {
-  options: ({ conversationId = 0 }) => ({
-    conversationId
+  options: props => ({
+    fetchPolicy: "network-only",
+    variables: {
+      conversationId: props.conversationId
+    }
   })
 })(Messages);

@@ -37,7 +37,7 @@ export class SignInPage extends Component {
     });
 
     const { ok, token, errors } = response.data.signIn;
-
+    this.setState({ loading: false });
     if (ok) {
       localStorage.setItem("token", token);
       this.props.history.push("/home");
@@ -48,7 +48,6 @@ export class SignInPage extends Component {
       });
       this.setState({ errors: err });
     }
-    this.setState({ loading: false });
   };
 
   render() {

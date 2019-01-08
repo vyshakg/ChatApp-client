@@ -13,7 +13,7 @@
 .app-layout {
   display: grid;
   height: 100vh;
-  grid-template-columns: 300px 350px 1fr;
+  grid-template-columns: 100px 350px 1fr;
   grid-template-rows: auto 1fr auto;
 }
 .sidebar {
@@ -188,4 +188,45 @@
 a.active > div {
   color: white !important;
   background: #2185d094 !important;
+}
+
+/* .profile-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 9rem;
+  padding: 0 3rem;
+} */
+
+.sidebar-style {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-evenly; */
+}
+.sidebar-style > div {
+  margin: 0.75rem;
+  padding: 14px;
+  box-shadow: 0px 0px 3px 0px #d2d2d2;
+  border-radius: 16px;
+}
+
+.sidebar-style div:last-child {
+  margin-top: 30rem;
+  padding: 0;
+}
+
+.sidebar-style div:last-child:hover {
+  border: #dee5ed solid;
+}
+.signout-style {
+  border: 0;
+  padding: 14px;
+  background: transparent;
+}
+
+.signout-style:focus {
+  cursor: pointer;
+  outline: 0;
 }
