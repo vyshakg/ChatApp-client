@@ -7,6 +7,7 @@ import { me } from "../../graphqlQuery";
 import Messages from "../chatComponents/Messages";
 import { withApollo } from "react-apollo";
 import SidebarApp from "../chatComponents/SidebarApp";
+import NewConversation from "../chatComponents/NewConversation";
 class HomeMessagepage extends React.Component {
   render() {
     const {
@@ -34,7 +35,12 @@ class HomeMessagepage extends React.Component {
           <SidebarApp profile={me} />
         </div>
         <div className="conversations">
-          <Conversations conversations={me.conversations} />
+          <div>
+            <Conversations conversations={me.conversations} />
+          </div>
+          <div>
+            <NewConversation conversations={me.conversations} />
+          </div>
         </div>
         <div className="homeHeader">
           {!!participants[0] && (

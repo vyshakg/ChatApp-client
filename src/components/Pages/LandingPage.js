@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { withApollo } from "react-apollo";
-function LandingPage({ client }) {
-  console.log(client);
+function LandingPage() {
   return (
     <div>
       Welconme to Chat app
@@ -12,4 +10,4 @@ function LandingPage({ client }) {
   );
 }
 
-export default withApollo(LandingPage);
+export default LandingPage;

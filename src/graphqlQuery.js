@@ -105,6 +105,7 @@ export const messages = gql`
         id
         username
       }
+      createdAt
     }
   }
 `;
@@ -119,6 +120,22 @@ export const newConversationMessage = gql`
         username
       }
       createdAt
+    }
+  }
+`;
+export const newConversation = gql`
+  subscription($userid: ID!) {
+    newConversationMessage(userid: $userid) {
+      ok
+      conversation {
+        id
+        participants {
+          id
+          username
+          email
+        }
+        createdAt
+      }
     }
   }
 `;

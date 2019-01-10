@@ -30,6 +30,7 @@ class Messages extends Component {
           },
           updateQuery: (previousResult, { subscriptionData }) => {
             // Perform updates on previousResult with subscriptionData
+
             if (!subscriptionData) {
               return previousResult;
             }
@@ -58,15 +59,20 @@ class Messages extends Component {
       return null;
     }
     const { userid } = this.props;
-
     return (
       <ul className="message-list">
         {messages.map(message => (
           <React.Fragment key={message.id}>
-            {userid === message.from.id ? (
-              <MessageDesignLeft text={message.text} />
+            {userid !== message.from.id ? (
+              <MessageDesignLeft
+                text={message.text}
+                createdAt={message.createdAt}
+              />
             ) : (
-              <MessageDesignRight text={message.text} />
+              <MessageDesignRight
+                text={message.text}
+                createdAt={message.createdAt}
+              />
             )}
           </React.Fragment>
         ))}

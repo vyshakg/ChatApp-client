@@ -1,12 +1,14 @@
 import React from "react";
+import diffDate from "../../utils/formatDate";
 
-function MessageDesignRight({ text }) {
+function MessageDesignRight({ text, createdAt }) {
   return (
     <li style={{ paddingBottom: "1rem", paddingLeft: "85%", width: "100%" }}>
-      <div className="talk-bubble tri-right btm-right">
-        <div className="talktext">
-          <p>{text}</p>
-        </div>
+      <div className="message-orange">
+        <p className="message-content">{text}</p>
+        <div className="message-timestamp-right">{`${diffDate(
+          createdAt
+        )} ago`}</div>
       </div>
     </li>
   );
