@@ -68,17 +68,18 @@
 }
 
 .header-info {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr auto;
   margin-left: 1rem;
   align-items: center;
   color: white;
-  margin-top: 0.5rem;
+  margin-top: 14px;
+  margin-right: 1rem;
 }
 
-.header-info > div {
+/* .header-info > div {
   padding-left: 1rem;
-}
+} */
 .conversation-new {
   width: 100% !important;
   text-align: center;

@@ -45,9 +45,10 @@ class HomeMessagepage extends React.Component {
         <div className="homeHeader">
           {!!participants[0] && (
             <ChatHeader
-              me={me}
+              conversationId={conversationId}
               username={participants[0].username}
               email={participants[0].email}
+              history={this.props.history}
             />
           )}
         </div>

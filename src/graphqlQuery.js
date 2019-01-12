@@ -123,19 +123,24 @@ export const newConversationMessage = gql`
     }
   }
 `;
-export const newConversation = gql`
-  subscription($userid: ID!) {
-    newConversationMessage(userid: $userid) {
-      ok
-      conversation {
-        id
-        participants {
-          id
-          username
-          email
-        }
-        createdAt
-      }
-    }
+// export const newConversation = gql`
+//   subscription($userid: ID!) {
+//     newConversationMessage(userid: $userid) {
+//       ok
+//       conversation {
+//         id
+//         participants {
+//           id
+//           username
+//           email
+//         }
+//         createdAt
+//       }
+//     }
+//   }
+// `;
+export const deleteConversation = gql`
+  mutation($conversationId: ID!) {
+    deleteConversation(conversationId: $conversationId)
   }
 `;
