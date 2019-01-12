@@ -3,14 +3,18 @@ import { Image, Icon } from "semantic-ui-react";
 import bob from "../../images/lamo.jpg";
 import diffDate from "../../utils/formatDate";
 import { NavLink } from "react-router-dom";
-import SearchConversation from "./SearchConversation";
 
 class Conversations extends React.Component {
+  state = {
+    conversations: this.props.conversations
+  };
+  componentWillReceiveProps(nextprops) {
+    this.setState({ conversations: nextprops.conversations });
+  }
   render() {
-    const { conversations } = this.props;
+    const { conversations } = this.state;
     return (
       <>
-        <SearchConversation conversations={conversations} />
         {conversations.map(({ participants, id, createdAt, online }) => (
           <NavLink activeClassName="active" key={id} to={`/home/${id}`}>
             <React.Fragment>

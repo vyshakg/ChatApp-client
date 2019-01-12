@@ -1,13 +1,13 @@
 import React from "react";
 import MessageInput from "../chatComponents/MessageInput";
 import ChatHeader from "../chatComponents/ChatHeader";
-import Conversations from "../chatComponents/Conversations";
 import { graphql } from "react-apollo";
 import { me } from "../../graphqlQuery";
 import Messages from "../chatComponents/Messages";
 import { withApollo } from "react-apollo";
 import SidebarApp from "../chatComponents/SidebarApp";
 import NewConversation from "../chatComponents/NewConversation";
+import SearchConversation from "../chatComponents/SearchConversation";
 class HomeMessagepage extends React.Component {
   render() {
     const {
@@ -36,7 +36,7 @@ class HomeMessagepage extends React.Component {
         </div>
         <div className="conversations">
           <div>
-            <Conversations conversations={me.conversations} />
+            <SearchConversation conversations={me.conversations} />
           </div>
           <div>
             <NewConversation conversations={me.conversations} />

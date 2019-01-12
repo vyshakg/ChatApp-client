@@ -88,41 +88,42 @@ class NewConversation extends React.Component {
           icon={null}
         >
           <Dropdown.Menu>
-            <Dropdown.Header content="People You Might Know" />
-
             {newUsers.length === 0 ? (
-              <div>
-                <h3>No new user Found</h3>
+              <Dropdown.Header>
+                <h5>No new user Found</h5>
                 <span style={{ color: "blue", cursor: "pointer" }}>
                   Invite a friend to an ChatApp??
                 </span>
-              </div>
+              </Dropdown.Header>
             ) : (
-              newUsers.map(({ username, id, email, online }) => (
-                <Dropdown.Item
-                  key={id}
-                  onClick={() => this.newConversation(id, username, email)}
-                >
-                  <div className="container-list">
-                    <div className="container-image">
-                      <Image src={bob} circular inline bordered />
-                    </div>
-                    <div className="container-desc">
-                      <h3 style={{ margin: 0 }}>
-                        {username}
-                        {/* <Icon
+              <>
+                <Dropdown.Header content="People You Might Know" />
+                {newUsers.map(({ username, id, email, online }) => (
+                  <Dropdown.Item
+                    key={id}
+                    onClick={() => this.newConversation(id, username, email)}
+                  >
+                    <div className="container-list">
+                      <div className="container-image">
+                        <Image src={bob} circular inline bordered />
+                      </div>
+                      <div className="container-desc">
+                        <h3 style={{ margin: 0 }}>
+                          {username}
+                          {/* <Icon
                           style={{ marginLeft: "3px" }}
                           name="circle"
                           color={online ? "green" : "grey"}
                           size="tiny"
                         /> */}
-                      </h3>
-                      <div>{email}</div>
+                        </h3>
+                        <div>{email}</div>
+                      </div>
+                      <div className="container-action" />
                     </div>
-                    <div className="container-action" />
-                  </div>
-                </Dropdown.Item>
-              ))
+                  </Dropdown.Item>
+                ))}
+              </>
             )}
           </Dropdown.Menu>
         </Dropdown>
