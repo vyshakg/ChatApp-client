@@ -6,12 +6,14 @@ export const SignupMutation = gql`
     $username: String!
     $phoneNo: String!
     $password: String!
+    $profilePic: ID!
   ) {
     signUp(
       email: $email
       username: $username
       phoneNo: $phoneNo
       password: $password
+      profilePic: $profilePic
     ) {
       ok
       errors {
@@ -43,10 +45,12 @@ export const me = gql`
       email
       phoneNo
       online
+      profilePic
       conversations {
         id
         participants {
           id
+          profilePic
           username
           email
           __typename
@@ -65,6 +69,7 @@ export const allUsers = gql`
       username
       email
       online
+      profilePic
       id
     }
   }
@@ -79,6 +84,7 @@ export const createConversationMutation = gql`
         id
         participants {
           id
+          profilePic
           username
           email
           __typename
@@ -142,5 +148,10 @@ export const newConversationMessage = gql`
 export const deleteConversation = gql`
   mutation($conversationId: ID!) {
     deleteConversation(conversationId: $conversationId)
+  }
+`;
+export const allProfilePic = gql`
+  query {
+    allProfilePic
   }
 `;

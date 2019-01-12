@@ -315,3 +315,82 @@ a.active > div {
   z-index: 1;
   color: #4f5b66;
 }
+.container-profile-signup {
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  border-radius: 3px;
+  height: 350px;
+  margin-top: 72px;
+}
+.profilepic-signup {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+.wrapper-flex-pics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.wrapper-flex-pics label {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+}
+.wrapper-flex-pics img {
+  display: flex;
+}
+.wrapper-flex-pics input {
+  display: none;
+}
+.wrapper-flex-pics input:checked + .caption {
+  background: rgba(0, 0, 0, 0.5);
+}
+.wrapper-flex-pics input:checked + .caption::after {
+  content: "✔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 60px;
+  line-height: 80px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.caption span {
+  display: inline-block;
+  padding: 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  font-family: "Myriad Pro regular";
+  font-size: 15.31px;
+}
+.wrapper-flex-pics > img {
+  padding: 9px;
+  cursor: pointer;
+}
+.header-signup-profilepic {
+  border: 2px solid;
+  border-radius: 39px;
+  width: 60%;
+  margin: auto;
+  padding: 6px;
+  box-shadow: -1px 4px 8px 2px #595aacc9;
+}

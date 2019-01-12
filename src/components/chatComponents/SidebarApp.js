@@ -1,15 +1,16 @@
 import React from "react";
-import bob from "../../images/1.jpg";
 import { Image, Icon } from "semantic-ui-react";
 import { withApollo } from "react-apollo";
 import { withRouter } from "react-router-dom";
-function SidebarApp({ client, history }) {
+import imageURL from "../../utils/imageUrl";
+function SidebarApp({ client, history, profile }) {
   async function handleChange() {
     await client.resetStore();
     localStorage.removeItem("token");
 
     history.push("/");
   }
+
   return (
     <>
       <div style={{ textAlign: "center" }}>
@@ -17,7 +18,7 @@ function SidebarApp({ client, history }) {
           circular
           inline
           bordered
-          src={bob}
+          src={imageURL(profile.profilePic.img.data)}
           alt="profile-pic"
           width={60}
           style={{ margin: "2rem 0", boxShadow: " 0 0 2px 5px #31b33b" }}

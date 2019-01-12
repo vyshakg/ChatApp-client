@@ -5,6 +5,7 @@ import { graphql } from "react-apollo";
 import { allUsers, me, createConversationMutation } from "../../graphqlQuery";
 import { differenceBy } from "lodash";
 import { compose } from "react-apollo";
+import imageURL from "../../utils/imageUrl";
 class NewConversation extends React.Component {
   state = { modalOpen: false };
 
@@ -98,14 +99,19 @@ class NewConversation extends React.Component {
             ) : (
               <>
                 <Dropdown.Header content="People You Might Know" />
-                {newUsers.map(({ username, id, email, online }) => (
+                {newUsers.map(({ username, id, email, profilePic }) => (
                   <Dropdown.Item
                     key={id}
                     onClick={() => this.newConversation(id, username, email)}
                   >
                     <div className="container-list">
                       <div className="container-image">
-                        <Image src={bob} circular inline bordered />
+                        <Image
+                          src={imageURL(profilePic.img.data)}
+                          circular
+                          inline
+                          bordered
+                        />
                       </div>
                       <div className="container-desc">
                         <h3 style={{ margin: 0 }}>

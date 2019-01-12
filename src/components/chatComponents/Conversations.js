@@ -1,8 +1,8 @@
 import React from "react";
 import { Image, Icon } from "semantic-ui-react";
-import bob from "../../images/lamo.jpg";
 import diffDate from "../../utils/formatDate";
 import { NavLink } from "react-router-dom";
+import imageURL from "../../utils/imageUrl";
 
 class Conversations extends React.Component {
   state = {
@@ -13,6 +13,7 @@ class Conversations extends React.Component {
   }
   render() {
     const { conversations } = this.state;
+    console.log(conversations);
     return (
       <>
         {conversations.map(({ participants, id, createdAt, online }) => (
@@ -20,7 +21,12 @@ class Conversations extends React.Component {
             <React.Fragment>
               <div className="conversation-list">
                 <div className="conversation-image">
-                  <Image src={bob} circular inline bordered />
+                  <Image
+                    src={imageURL(participants[0].profilePic.img.data)}
+                    circular
+                    inline
+                    bordered
+                  />
                 </div>
                 <div className="conversation-content">
                   <h3 style={{ margin: 0 }}>

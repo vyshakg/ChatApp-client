@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { Link } from "react-router-dom";
+
 import {
   Button,
   Form,
@@ -12,6 +13,7 @@ import {
 } from "semantic-ui-react";
 
 import { SignupMutation } from "../../graphqlQuery";
+import ProfilePicSelect from "../signUpComponent/ProfilePicSelect";
 
 class SignUpPage extends Component {
   state = {
@@ -19,12 +21,16 @@ class SignUpPage extends Component {
       email: "",
       username: "",
       phoneNo: "",
-      password: ""
+      password: "",
+      profilePic: ""
     },
     errors: {},
     loading: false
   };
-
+  selectedProfilePic = async id => {
+    await this.setState({ data: { ...this.state.data, profilePic: id } });
+    console.log(this.state.profilePic);
+  };
   onChange = ({ target }) => {
     this.setState({
       data: { ...this.state.data, [target.name]: target.value },
@@ -33,12 +39,12 @@ class SignUpPage extends Component {
   };
 
   onSubmit = async () => {
-    const { email, username, phoneNo, password } = this.state.data;
+    const { email, username, phoneNo, password, profilePic } = this.state.data;
 
     this.setState({ loading: true });
 
     const response = await this.props.mutate({
-      variables: { email, username, phoneNo, password }
+      variables: { email, username, phoneNo, password, profilePic }
     });
 
     const { ok, errors } = response.data.signUp;
@@ -63,7 +69,10 @@ class SignUpPage extends Component {
           style={{ height: "100%" }}
           verticalAlign="middle"
         >
-          <Grid.Column style={{ maxWidth: 450 }}>
+          <Grid.Column computer={4}>
+            <ProfilePicSelect selectedProfilePic={this.selectedProfilePic} />
+          </Grid.Column>
+          <Grid.Column computer={4}>
             <Header as="h2" className="primaryColor" textAlign="center">
               <Icon circular name="chat" />
               Sign-Up to your account
