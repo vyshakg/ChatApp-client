@@ -10,7 +10,7 @@ function SidebarApp({ client, history, profile }) {
 
     history.push("/");
   }
-
+  // console.log(profile.profilePic);
   return (
     <>
       <div style={{ textAlign: "center" }}>

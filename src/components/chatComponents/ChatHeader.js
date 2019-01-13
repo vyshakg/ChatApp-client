@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon, Dropdown } from "semantic-ui-react";
-import { deleteConversation, me, messages } from "../../graphqlQuery";
+import { deleteConversation, me } from "../../graphqlQuery";
 import { graphql } from "react-apollo";
 // import { withRouter } from "react-router-dom";
 
@@ -24,17 +24,6 @@ function ChatHeader({ username, conversationId, mutate, history }) {
         );
         data.me.conversations = updatedConversations;
         store.writeQuery({ query: me, data });
-
-        const messgaeData = {};
-        messgaeData.messages = [];
-
-        store.writeQuery({
-          query: messages,
-          variables: {
-            conversationId
-          },
-          messgaeData
-        });
       }
     });
     history.push("/home");

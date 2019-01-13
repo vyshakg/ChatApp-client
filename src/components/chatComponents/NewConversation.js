@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Image, Dropdown } from "semantic-ui-react";
-import bob from "../../images/lamo.jpg";
 import { graphql } from "react-apollo";
 import { allUsers, me, createConversationMutation } from "../../graphqlQuery";
 import { differenceBy } from "lodash";
@@ -13,7 +12,7 @@ class NewConversation extends React.Component {
 
   handleClose = () => this.setState({ modalOpen: false });
 
-  newConversation = (id, username, email) => {
+  newConversation = (id, username, email, profilePic) => {
     this.setState({ modalOpen: false });
     this.props.mutate({
       variables: { userid: id },
@@ -30,6 +29,7 @@ class NewConversation extends React.Component {
                 __typename: "User",
                 id: -1,
                 username,
+                profilePic,
                 email
               }
             ]
@@ -102,7 +102,9 @@ class NewConversation extends React.Component {
                 {newUsers.map(({ username, id, email, profilePic }) => (
                   <Dropdown.Item
                     key={id}
-                    onClick={() => this.newConversation(id, username, email)}
+                    onClick={() =>
+                      this.newConversation(id, username, email, profilePic)
+                    }
                   >
                     <div className="container-list">
                       <div className="container-image">

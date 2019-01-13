@@ -67,6 +67,7 @@ class Messages extends Component {
               <MessageDesignLeft
                 text={message.text}
                 createdAt={message.createdAt}
+                profilePic={message.from.profilePic}
               />
             ) : (
               <MessageDesignRight

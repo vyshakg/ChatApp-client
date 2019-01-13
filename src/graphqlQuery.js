@@ -110,6 +110,7 @@ export const messages = gql`
       from {
         id
         username
+        profilePic
       }
       createdAt
     }
@@ -124,6 +125,7 @@ export const newConversationMessage = gql`
       from {
         id
         username
+        profilePic
       }
       createdAt
     }

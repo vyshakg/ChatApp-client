@@ -13,7 +13,7 @@ class Conversations extends React.Component {
   }
   render() {
     const { conversations } = this.state;
-    console.log(conversations);
+    // console.log(conversations);
     return (
       <>
         {conversations.map(({ participants, id, createdAt, online }) => (
