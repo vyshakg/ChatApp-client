@@ -22,14 +22,13 @@ class SignUpPage extends Component {
       username: "",
       phoneNo: "",
       password: "",
-      profilePic: ""
+      profilePic: "5c3a24ebc9b9bf3600e9ac2e"
     },
     errors: {},
     loading: false
   };
   selectedProfilePic = async id => {
     await this.setState({ data: { ...this.state.data, profilePic: id } });
-    console.log(this.state.profilePic);
   };
   onChange = ({ target }) => {
     this.setState({
