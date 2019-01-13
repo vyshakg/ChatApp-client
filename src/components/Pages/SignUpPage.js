@@ -72,12 +72,24 @@ class SignUpPage extends Component {
             <ProfilePicSelect selectedProfilePic={this.selectedProfilePic} />
           </Grid.Column>
           <Grid.Column computer={4}>
-            <Header as="h2" className="primaryColor" textAlign="center">
-              <Icon circular name="chat" />
+            <Header as="h2" style={{ color: "white" }} textAlign="center">
+              <Icon
+                circular
+                name="chat"
+                style={{
+                  boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)",
+                  color: "#595aac",
+                  background: "white"
+                }}
+              />
               Sign-Up to your account
             </Header>
             <Form size="large">
-              <Segment>
+              <Segment
+                style={{
+                  boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)"
+                }}
+              >
                 <Form.Input
                   error={!!errors.email}
                   name="email"
@@ -135,11 +147,16 @@ class SignUpPage extends Component {
                 </Button>
               </Segment>
             </Form>
-            <Message>
+            <Message
+              style={{ boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)" }}
+            >
               Already have an Account? <Link to="/signin"> Sign-In </Link>
             </Message>
             {Object.keys(errors).length !== 0 && (
               <Message
+                style={{
+                  boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)"
+                }}
                 error
                 header="There was some errors with your submission"
                 list={Object.values(errors)}

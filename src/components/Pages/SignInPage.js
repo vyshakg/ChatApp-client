@@ -61,11 +61,24 @@ export class SignInPage extends Component {
             verticalAlign="middle"
           >
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as="h2" className="primaryColor" textAlign="center">
-                <Icon circular name="chat" /> Sign-in to your account
+              <Header as="h2" style={{ color: "white" }} textAlign="center">
+                <Icon
+                  circular
+                  name="chat"
+                  style={{
+                    boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)",
+                    color: "#595aac",
+                    background: "white"
+                  }}
+                />
+                Sign-in to your account
               </Header>
               <Form size="large">
-                <Segment>
+                <Segment
+                  style={{
+                    boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)"
+                  }}
+                >
                   <Form.Input
                     fluid
                     error={!!errors.email}
@@ -100,11 +113,18 @@ export class SignInPage extends Component {
                   </Button>
                 </Segment>
               </Form>
-              <Message>
+              <Message
+                style={{
+                  boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)"
+                }}
+              >
                 New to us? <Link to="/signup">Sign Up</Link>
               </Message>
               {Object.keys(errors).length !== 0 && (
                 <Message
+                  style={{
+                    boxShadow: "-2px 1px 12px 3px rgba(84, 35, 35, 0.71)"
+                  }}
                   error
                   header="There was some errors with your submission"
                   list={Object.values(errors)}

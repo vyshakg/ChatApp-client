@@ -64,12 +64,9 @@ class HomeMessagepage extends React.Component {
 }
 
 export default withApollo(
-  graphql(
-    me
-    //   , {
-    //   options: {
-    //     fetchPolicy: ""
-    //   }
-    // }
-  )(HomeMessagepage)
+  graphql(me, {
+    options: {
+      fetchPolicy: "network-only"
+    }
+  })(HomeMessagepage)
 );
