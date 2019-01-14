@@ -9,10 +9,9 @@ import { getMainDefinition } from "apollo-utilities";
 const host = process.env.REACT_APP_SERVER_URL || "http://localhost:4000";
 const httpLink = createHttpLink({
   uri: `${host}/graphql`,
-  credentials: "include"
+  credentials: "same-origin"
 });
 
-console.log(process.env.REACT_APP_WEB_SOCKET);
 const wsLink = new WebSocketLink({
   uri: `${process.env.REACT_APP_WEB_SOCKET}/graphql`,
   options: {
