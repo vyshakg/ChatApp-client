@@ -16,8 +16,8 @@ live demo - https://chat-app-graphql.netlify.com
 <p align="center">Diagram.2 real-time subscriptions </p>
 
 ### State management:
-- I Didn't use ant stated manage library like redux, Just passed the props from one state another(like what they say `Props drilling`)
-- but used apollo-graphql-cache which stores the graphql query data as state management
+- I didn't use any stated manage library like redux, Just passed the props from one state another(like what they say `Props drilling`:stuck_out_tongue_closed_eyes:)
+- but used apollo-graphql-cache which stores the graphql query data in cache
 
 ![chatapp del con v1](https://user-images.githubusercontent.com/17231224/51193990-25735f80-1910-11e9-9867-c822359b511a.gif)
 
