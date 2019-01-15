@@ -1,6 +1,7 @@
 # Chat App Client
 
 Chat App server  - https://github.com/vyshakg/ChatApp-server
+
 live demo - https://chat-app-graphql.netlify.com
 
 ## Technologies used to Build a Client
