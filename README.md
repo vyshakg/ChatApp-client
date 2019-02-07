@@ -25,7 +25,7 @@ live demo - https://chat-app-graphql.netlify.com
 
 ### security and Authenication 
 - Authenication is done by the JWT token which is stored in local Storage whcih will be sent on each request done by the client to the server
-- if the User signout from the chatapp the JWt will be reoved cache will be cleared and redirected to the landing page
+- if the User signout from the chatapp the JWT will be removed cache will be cleared and redirected to the landing page
 
 ![chatapp signout v1](https://user-images.githubusercontent.com/17231224/51194478-2789ee00-1911-11e9-92ed-f2f9c9599751.gif)
 <p align="center">Diagram.2 sign out </p>
