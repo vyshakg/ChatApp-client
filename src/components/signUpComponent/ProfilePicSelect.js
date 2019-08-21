@@ -4,8 +4,8 @@ import { allProfilePic } from "../../graphqlQuery";
 import { IMG_URL } from "../../utils/constants";
 
 class ProfilePicSelect extends Component {
-  onClickHandle = id => {
-    this.props.selectedProfilePic(id);
+  onClickHandle = img => {
+    this.props.selectedProfilePic(img);
   };
   render() {
     const {
