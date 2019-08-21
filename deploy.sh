@@ -1,1 +1,1 @@
-yarn build && netlify deploy --prod --dir ./buildgit push -u origin master
+yarn build && netlify deploy --prod --dir ./build && git push -u origin master
