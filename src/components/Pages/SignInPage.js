@@ -1,22 +1,22 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { graphql } from "react-apollo";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
   Grid,
   Header,
-  Message,
   Icon,
+  Message,
   Segment
 } from "semantic-ui-react";
-
 import { SigninMutation } from "../../graphqlQuery";
+
 export class SignInPage extends Component {
   state = {
     data: {
-      email: "",
-      password: ""
+      email: "guest@guest.com",
+      password: "Guest123"
     },
     errors: {},
     loading: false
