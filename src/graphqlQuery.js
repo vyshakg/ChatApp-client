@@ -6,7 +6,7 @@ export const SignupMutation = gql`
     $username: String!
     $phoneNo: String!
     $password: String!
-    $profilePic: ID!
+    $profilePic: String
   ) {
     signUp(
       email: $email

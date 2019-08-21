@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { allProfilePic } from "../../graphqlQuery";
-import imageURL from "../../utils/imageUrl";
+import { IMG_URL } from "../../utils/constants";
 
 class ProfilePicSelect extends Component {
   onClickHandle = id => {
@@ -17,13 +17,13 @@ class ProfilePicSelect extends Component {
       <div className="container-profile-signup">
         <div className="wrapper-flex-pics">
           {allProfilePic.map(images => (
-            <label key={images._id}>
+            <label key={images}>
               <img
-                id={images._id}
-                src={imageURL(images.img.data)}
+                id={images}
+                src={`${IMG_URL}${images}.jpg`}
                 alt="profile"
                 className="profilepic-signup"
-                onClick={() => this.onClickHandle(images._id)}
+                onClick={() => this.onClickHandle(images)}
               />
               <input type="radio" name="selimg" />
               <span className="caption" />

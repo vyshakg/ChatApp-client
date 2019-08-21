@@ -1,8 +1,8 @@
 import React from "react";
-import { Image, Icon } from "semantic-ui-react";
 import { withApollo } from "react-apollo";
 import { withRouter } from "react-router-dom";
-import imageURL from "../../utils/imageUrl";
+import { Icon, Image } from "semantic-ui-react";
+import { IMG_URL } from "../../utils/constants";
 function SidebarApp({ client, history, profile }) {
   async function handleChange() {
     await client.resetStore();
@@ -18,7 +18,8 @@ function SidebarApp({ client, history, profile }) {
           circular
           inline
           bordered
-          src={imageURL(profile.profilePic.img.data)}
+          src={`${IMG_URL}${profile.profilePic}.jpg`}
+          // {imageURL(profile.profilePic.img.data)}
           alt="profile-pic"
           width={60}
           style={{ margin: "2rem 0", boxShadow: " 0 0 2px 5px #31b33b" }}

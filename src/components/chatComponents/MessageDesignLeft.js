@@ -1,13 +1,13 @@
 import React from "react";
-import diffDate from "../../utils/formatDate";
 import { Image } from "semantic-ui-react";
-import imageURL from "../../utils/imageUrl";
+import { IMG_URL } from "../../utils/constants";
+import diffDate from "../../utils/formatDate";
 
 function MessageDesign({ text, createdAt, profilePic }) {
   return (
     <li style={{ width: "100%", paddingBottom: "1rem" }}>
       <Image
-        src={imageURL(profilePic.img.data)}
+        src={`${IMG_URL}${profilePic}.jpg`}
         alt="profile"
         width={60}
         circular

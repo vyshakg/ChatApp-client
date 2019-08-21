@@ -1,10 +1,9 @@
-import React from "react";
-import { Button, Image, Dropdown } from "semantic-ui-react";
-import { graphql } from "react-apollo";
-import { allUsers, me, createConversationMutation } from "../../graphqlQuery";
 import { differenceBy } from "lodash";
-import { compose } from "react-apollo";
-import imageURL from "../../utils/imageUrl";
+import React from "react";
+import { compose, graphql } from "react-apollo";
+import { Button, Dropdown, Image } from "semantic-ui-react";
+import { allUsers, createConversationMutation, me } from "../../graphqlQuery";
+import { IMG_URL } from "../../utils/constants";
 class NewConversation extends React.Component {
   state = { modalOpen: false };
 
@@ -109,7 +108,7 @@ class NewConversation extends React.Component {
                     <div className="container-list">
                       <div className="container-image">
                         <Image
-                          src={imageURL(profilePic.img.data)}
+                          src={`${IMG_URL}${profilePic}.jpg`}
                           circular
                           inline
                           bordered

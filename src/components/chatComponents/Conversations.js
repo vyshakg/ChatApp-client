@@ -1,9 +1,8 @@
 import React from "react";
-import { Image, Icon } from "semantic-ui-react";
-import diffDate from "../../utils/formatDate";
 import { NavLink } from "react-router-dom";
-import imageURL from "../../utils/imageUrl";
-
+import { Icon, Image } from "semantic-ui-react";
+import { IMG_URL } from "../../utils/constants";
+import diffDate from "../../utils/formatDate";
 class Conversations extends React.Component {
   state = {
     conversations: this.props.conversations
@@ -22,7 +21,7 @@ class Conversations extends React.Component {
               <div className="conversation-list">
                 <div className="conversation-image">
                   <Image
-                    src={imageURL(participants[0].profilePic.img.data)}
+                    src={`${IMG_URL}${participants[0].profilePic}.jpg`}
                     circular
                     inline
                     bordered
